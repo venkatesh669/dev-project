@@ -1,0 +1,1 @@
+echo "Trigger pipeline run"
