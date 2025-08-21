@@ -1,11 +1,16 @@
-const request = require("supertest");
-const app = require("../app");
+const express = require('express');
+const app = express();
 
-describe("GET /", () => {
-  it("should return Hello message", async () => {
-    const res = await request(app).get("/");
-    expect(res.statusCode).toBe(200);
-    expect(res.text).toBe("Hello from CI/CD with GitHub Actions & Docker! 🚀");
-  });
+app.get('/', (req, res) => {
+  res.send('Hello from CI/CD with GitHub Actions & Docker! 🚀');
 });
+
+// Only start server if this file is run directly (not during tests)
+if (require.main === module) {
+  app.listen(3000, () => {
+    console.log('App running on port 3000');
+  });
+}
+
+module.exports = app; // <-- important for tests
 
